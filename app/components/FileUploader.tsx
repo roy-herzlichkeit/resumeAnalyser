@@ -7,20 +7,28 @@ interface FileUploaderProps {
 }
 
 const FileUploader = ({ onFileSelect }: FileUploaderProps) => {
+    const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
     const onDrop = useCallback((acceptedFiles: File[]) => {
         const file = acceptedFiles[0] || null;
+        setSelectedFile(file);
         onFileSelect?.(file);
     }, [onFileSelect]);
 
-    const { getRootProps, getInputProps, isDragActive, acceptedFiles } = useDropzone({
+    const { getRootProps, getInputProps, isDragActive } = useDropzone({
         onDrop,
         multiple: false,
         accept: { 'application/pdf': ['.pdf'] },
         maxSize: 20 * 1024 * 1024
     });
 
-    const file = acceptedFiles[0] || null;
+    const handleRemoveFile = useCallback((e: React.MouseEvent) => {
+        e.stopPropagation();
+        setSelectedFile(null);
+        onFileSelect?.(null);
+    }, [onFileSelect]);
+
+    const file = selectedFile;
 
     return (
         <div className="w-full gradient-border">
@@ -41,7 +49,7 @@ const FileUploader = ({ onFileSelect }: FileUploaderProps) => {
                                         </p>
                                     </div>
                                 </div>
-                                <button className='p-2 cursor-pointer' onClick={(e) => { onFileSelect?.(null) }}>
+                                <button className='p-2 cursor-pointer' onClick={handleRemoveFile}>
                                     <img src="/icons/cross.svg" alt="remove" className='w-4 h-4' />
                                 </button>
                             </div>

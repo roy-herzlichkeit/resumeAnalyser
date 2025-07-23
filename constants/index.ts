@@ -136,10 +136,12 @@ export const AIResponseFormat = `
     }`;
 
 export const prepareInstructions = ({
+  companyName,
   jobTitle,
   jobDescription,
   AIResponseFormat,
 }: {
+  companyName: string,
   jobTitle: string;
   jobDescription: string;
   AIResponseFormat: string;
@@ -151,8 +153,10 @@ export const prepareInstructions = ({
   If there is a lot to improve, don't hesitate to give low scores. This is to help the user to improve their resume.
   If available, use the job description for the job user is applying to to give more detailed feedback.
   If provided, take the job description into consideration.
+  The company Name is ${companyName}
   The job title is: ${jobTitle}
   The job description is: ${jobDescription}
   Provide the feedback using the following format: ${AIResponseFormat}
+  Rate everything out of 100.
   Return the analysis as a JSON object, without any other text and without the backticks.
   Do not include any other text or comments.`;

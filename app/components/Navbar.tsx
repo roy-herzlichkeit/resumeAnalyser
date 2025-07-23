@@ -4,11 +4,11 @@ const Navbar = () => {
   return (
     <nav className="navbar">
         <Link to='/'>
-            <p className="text-2xl font-bold text-gradient"> 
-                RESUME REACT
+            <p className="text-lg sm:text-2xl font-bold text-gradient"> 
+                RESUMAID
             </p>
         </Link>
-        <Link to='/upload' className="primary-button w-fit">
+        <Link to='/upload' className="primary-button w-fit text-lg sm:text-2xl text-center">
                 Upload Resume
         </Link>
     </nav>
